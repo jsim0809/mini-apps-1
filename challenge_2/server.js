@@ -5,7 +5,8 @@ const PORT = 3000;
 const path = require('path');
 const bodyParser = require('body-parser');
 
-
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/', express.static(path.join(__dirname, 'client')));
@@ -35,6 +36,13 @@ app.post('/generate', (req, res) => {
 
   </body>
 </html>`);
+});
+
+console.log('======Samantha?=====',upload);
+
+app.post('/genfromfile', upload.single('fileinput'), (req, res) => {
+  console.log(req.file);
+  res.send('WooHOO');
 });
 
 app.listen(PORT, () => console.log(`Jeremy's CSV Report Generator listening on port ${PORT}.`));

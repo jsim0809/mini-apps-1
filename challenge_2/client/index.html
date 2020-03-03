@@ -13,10 +13,13 @@
       <br>
       <input type="submit" value="Convert to CSV">
     </form>
-    <br>
-    <form>
-      <label for="file">Or upload a JSON file:</label>
-
+    <br><br>
+    <form action="http://127.0.0.1:3000/genfromfile" method="POST" enctype="multipart/form-data">
+      <label for="fileinput">Or upload a JSON file:</label>
+      <br><br>
+      <input type="file" name="fileinput">
+      <br><br>
+      <input type="submit" value="Convert to CSV">
     </form>
 
   </body>
