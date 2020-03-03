@@ -15,7 +15,6 @@ app.use(bodyParser.json());
 
 app.post('/generate', (req, res) => {
   console.log('Received POST request.');
-  console.log(req.body.input);
   res.send(`<p>${generateCSV(req.body.input)}</p>`);
 });
 
@@ -27,7 +26,31 @@ app.listen(PORT, () => console.log(`Jeremy's CSV Report Generator listening on p
 
 var generateCSV = string => {
   var jsonObj = JSON.parse(string);
+
+  // Generate first row
+  var keys = Object.keys(jsonObj)
+  keys.pop();
   var csv = '';
-  csv += Object.keys(jsonObj);
+  csv += keys;
+
+  // Helper function, takes the overall object and recurses through it, adding to a queue to objects to convert. Then iterates over the queue, adding to a CSV-style string.
+  var objQueue = [jsonObj];
+
+  var queueAdder = childrenArray => {
+    for (var child of childrenArray) {
+      objQueue.push(child);
+      queueAdder(child.children);
+    }
+  };
+
+  queueAdder(jsonObj.children);
+
+  while (objQueue.length) {
+    var currObj = objQueue.shift();
+    var currValues = Object.values(currObj);
+    currValues.pop();
+    csv += '<br>' + currValues;
+  }
+
   return csv;
 };
