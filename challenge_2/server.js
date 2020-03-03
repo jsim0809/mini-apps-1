@@ -32,76 +32,17 @@ app.listen(PORT, () => console.log(`Jeremy's CSV Report Generator listening on p
 //// ROUTER methods
 //////////////////////
 
-app.post('/generate', (req, res) => {
-  console.log('Received POST request.');
-  res.send(`<!DOCTYPE html>
-  <html>
-  <head>
-    <title>Jeremy's CSV</title>
-  </head>
+/// OLD CODE from "convert text input" functionality
+// app.post('/', (req, res) => {
+//   res.send(generateCSV(req.body.input));
+// });
 
-  <body>
-    <h3> Jeremy's CSV Report Generator</h3>
-    <form action="http://127.0.0.1:3000/generate" method="POST">
-      <label for="input">Ask, and you shall reCSV.</label>
-      <br><br>
-      <textarea id="input" name="input" cols="100" rows="10" placeholder="Paste your JSON string here."></textarea>
-      <br>
-      <input type="submit" value="Convert to CSV">
-    </form>
-    <br><br>
-    <form action="http://127.0.0.1:3000/genfromfile" method="POST" enctype="multipart/form-data">
-      <label for="fileinput">Or upload a JSON file:</label>
-      <br><br>
-      <input type="file" name="fileinput">
-      <br><br>
-      <input type="submit" value="Convert to CSV">
-    </form>
-
-    <br><hr><br>
-    <h4>Generated CSV:</h4>
-    <p>${generateCSV(req.body.input)}</p>
-
-  </body>
-</html>`);
-});
-
-app.post('/genfromfile', upload.single('fileinput'), (req, res) => {
+app.post('/', upload.single('fileinput'), (req, res) => {
   fs.readFile(path.join(__dirname, 'uploads/fileinput'), 'utf8', (err, data) => {
     if (err) {
-      console.log(err);
       res.sendStatus(500);
     } else {
-      res.send(`<!DOCTYPE html>
-      <html>
-      <head>
-        <title>Jeremy's CSV</title>
-      </head>
-
-      <body>
-        <h3> Jeremy's CSV Report Generator</h3>
-        <form action="http://127.0.0.1:3000/generate" method="POST">
-          <label for="input">Ask, and you shall reCSV.</label>
-          <br><br>
-          <textarea id="input" name="input" cols="100" rows="10" placeholder="Paste your JSON string here."></textarea>
-          <br>
-          <input type="submit" value="Convert to CSV">
-        </form>
-        <br><br>
-        <form action="http://127.0.0.1:3000/genfromfile" method="POST" enctype="multipart/form-data">
-          <label for="fileinput">Or upload a JSON file:</label>
-          <br><br>
-          <input type="file" name="fileinput">
-          <br><br>
-          <input type="submit" value="Convert to CSV">
-        </form>
-
-        <br><hr><br>
-        <h4>Generated CSV:</h4>
-        <p>${generateCSV(data)}</p>
-
-      </body>
-    </html>`)
+      res.send(generateCSV(data));
     }
   });
 });

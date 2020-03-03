@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <title>Jeremy's CSV</title>
   </head>
 
   <body>
     <h3> Jeremy's CSV Report Generator</h3>
-    <form action="http://127.0.0.1:3000/generate" method="POST">
+    <!-- <form id="form1" action="/">
       <label for="input">Ask, and you shall reCSV.</label>
       <br><br>
       <textarea id="input" name="input" cols="100" rows="10" placeholder="Paste your JSON string here."></textarea>
       <br>
-      <input type="submit" value="Convert to CSV">
+      <input type="submit" id="textconvert" value="Convert to CSV">
     </form>
-    <br><br>
-    <form action="http://127.0.0.1:3000/genfromfile" method="POST" enctype="multipart/form-data">
-      <label for="fileinput">Or upload a JSON file:</label>
+    <br><br> -->
+    <form id="form2" action="" method="" enctype="multipart/form-data">
+      <label for="fileinput">Upload a JSON file:</label>
       <br><br>
       <input type="file" name="fileinput">
       <br><br>
-      <input type="submit" value="Convert to CSV">
+      <input type="submit" id="fileconvert" value="Convert to CSV">
     </form>
 
+    <div id="result">
+
+    </div>
+
   </body>
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="app.js"></script>
+
 </html>
 
