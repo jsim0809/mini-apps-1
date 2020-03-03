@@ -42,11 +42,16 @@ app.post('/', upload.single('fileinput'), (req, res) => {
     if (err) {
       res.sendStatus(500);
     } else {
-      res.send(generateCSV(data));
+      fs.writeFile(path.join(__dirname, 'client/yourfile.csv'), fileMaker(generateCSV(data)), (err) => {
+        if (err) {
+          res.sendStatus(500);
+        } else {
+          res.send(generateCSV(data));
+        }
+      });
     }
   });
 });
-
 
 ////////////////////
 //// CSV Generator helper function
@@ -54,8 +59,8 @@ app.post('/', upload.single('fileinput'), (req, res) => {
 ////////////////////
 
 var generateCSV = string => {
-  if(string[string.length-1] === ';') {
-    string = string.slice(0, string.length-1);
+  if (string[string.length - 1] === ';') {
+    string = string.slice(0, string.length - 1);
   }
   var jsonObj = JSON.parse(string);
 
@@ -85,4 +90,14 @@ var generateCSV = string => {
   }
 
   return csv;
+};
+
+
+////////////////////
+//// CSV Filemaker helper function
+// Takes a CSV string (in HTML format) and changes it to regular CSV file
+////////////////////
+
+var fileMaker = string => {
+  return string.split('<br>').join('\n');
 };

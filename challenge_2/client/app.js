@@ -9,6 +9,8 @@ $('#fileconvert').click(() => {
       <br><hr>
       <h4>Generated CSV:</h4>
       <p>${data}</p>
+      <br>
+      <a href="yourfile.csv" download=>Download as .csv file</a>
       `);
     },
     error: (error) => {
