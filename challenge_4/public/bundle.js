@@ -97,7 +97,7 @@
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
+ // Draws the board by iterating through every element of the board state and checking if it contains a character or undefined.
 
 var Board = ({
   board
@@ -111,10 +111,41 @@ var Board = ({
 /*!******************************!*\
   !*** ./client/ButtonRow.jsx ***!
   \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 
+var ButtonRow = ({
+  clickHandler
+}) => react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  name: "0",
+  onClick: clickHandler
+}, "O")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  name: "1",
+  onClick: clickHandler
+}, "O")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  name: "2",
+  onClick: clickHandler
+}, "O")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  name: "3",
+  onClick: clickHandler
+}, "O")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  name: "4",
+  onClick: clickHandler
+}, "O")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  name: "5",
+  onClick: clickHandler
+}, "O")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+  name: "6",
+  onClick: clickHandler
+}, "O"))));
+
+/* harmony default export */ __webpack_exports__["default"] = (ButtonRow);
 
 /***/ }),
 
@@ -153,7 +184,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _WhoseTurn_jsx__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./WhoseTurn.jsx */ "./client/WhoseTurn.jsx");
 /* harmony import */ var _Board_jsx__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Board.jsx */ "./client/Board.jsx");
 /* harmony import */ var _ButtonRow_jsx__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ButtonRow.jsx */ "./client/ButtonRow.jsx");
-/* harmony import */ var _ButtonRow_jsx__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_ButtonRow_jsx__WEBPACK_IMPORTED_MODULE_3__);
 
 
 
@@ -164,8 +194,25 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     super(props);
     this.state = {
       redTurn: true,
-      board: [['R'], ['Y', 'R'], [], [], [], [], []]
+      invalidMove: false,
+      board: [[], [], [], [], [], [], []]
     };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    var newState = JSON.parse(JSON.stringify(this.state));
+
+    if (this.state.board[e.target.name].length >= 6) {
+      newState.invalidMove = true;
+    } else {
+      newState.board[e.target.name].push(this.state.redTurn ? 'R' : 'Y');
+      newState.redTurn = !newState.redTurn;
+      newState.invalidMove = false;
+    }
+
+    this.setState(newState);
   }
 
   render() {
@@ -173,7 +220,9 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       redTurn: this.state.redTurn
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Board_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
       board: this.state.board
-    }));
+    }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ButtonRow_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
+      clickHandler: this.handleClick
+    }), this.state.invalidMove ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Invalid move! Please try again.") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null));
   }
 
 }
