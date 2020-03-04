@@ -9,7 +9,8 @@ class App extends React.Component {
     this.state = {
       redTurn: true,
       invalidMove: false,
-      board: [[], [], [], [], [], [], []]
+      board: [[], [], [], [], [], [], []],
+      winner: ''
     }
     this.handleClick = this.handleClick.bind(this);
   }
@@ -20,11 +21,32 @@ class App extends React.Component {
     if (this.state.board[e.target.name].length >= 6) {
       newState.invalidMove = true;
     } else {
-      newState.board[e.target.name].push(this.state.redTurn ? 'R' : 'Y');
-      newState.redTurn = !newState.redTurn;
       newState.invalidMove = false;
+      newState.board[e.target.name].push(this.state.redTurn ? 'R' : 'Y');
+      if (this.winningBoard(newState.board)) {
+        newState.winner = this.state.redTurn ? 'red' : 'yellow';
+      }
+      newState.redTurn = !newState.redTurn;
     }
     this.setState(newState);
+  }
+
+  winningBoard(board) {
+    // Column win
+    console.log(board);
+    ['R', 'Y'].forEach((letter) => {
+      for (var i = 0; i < board.length; i++) {
+        if (board[i][2] === letter && board[i][3] === letter) {
+          if ((board[i][0] === letter && board[i][1] === letter) ||
+            (board[i][1] === letter && board[i][4] === letter) ||
+            (board[i][4] === letter && board[i][5] === letter)) {
+              return true;
+            }
+        }
+      }
+    });
+
+    return false;
   }
 
   render() {
@@ -36,6 +58,7 @@ class App extends React.Component {
         <Board board={this.state.board} />
         <ButtonRow clickHandler={this.handleClick} />
         {this.state.invalidMove ? <p>Invalid move! Please try again.</p> : <p></p>}
+        {this.state.winner ? <h3>{this.state.winner.toUpperCase()} player wins!</h3> : <h3></h3>}
       </div>
     )
   }

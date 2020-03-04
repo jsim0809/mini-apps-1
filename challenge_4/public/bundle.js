@@ -195,7 +195,8 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     this.state = {
       redTurn: true,
       invalidMove: false,
-      board: [[], [], [], [], [], [], []]
+      board: [[], [], [], [], [], [], []],
+      winner: ''
     };
     this.handleClick = this.handleClick.bind(this);
   }
@@ -207,12 +208,32 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     if (this.state.board[e.target.name].length >= 6) {
       newState.invalidMove = true;
     } else {
-      newState.board[e.target.name].push(this.state.redTurn ? 'R' : 'Y');
-      newState.redTurn = !newState.redTurn;
       newState.invalidMove = false;
+      newState.board[e.target.name].push(this.state.redTurn ? 'R' : 'Y');
+
+      if (this.winningBoard(newState.board)) {
+        newState.winner = this.state.redTurn ? 'red' : 'yellow';
+      }
+
+      newState.redTurn = !newState.redTurn;
     }
 
     this.setState(newState);
+  }
+
+  winningBoard(board) {
+    // Column win
+    console.log(board);
+    ['R', 'Y'].forEach(letter => {
+      for (var i = 0; i < board.length; i++) {
+        if (board[i][2] === letter && board[i][3] === letter) {
+          if (board[i][0] === letter && board[i][1] === letter || board[i][1] === letter && board[i][4] === letter || board[i][4] === letter && board[i][5] === letter) {
+            return true;
+          }
+        }
+      }
+    });
+    return false;
   }
 
   render() {
@@ -222,7 +243,7 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       board: this.state.board
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ButtonRow_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
       clickHandler: this.handleClick
-    }), this.state.invalidMove ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Invalid move! Please try again.") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null));
+    }), this.state.invalidMove ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Invalid move! Please try again.") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), this.state.winner ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.state.winner.toUpperCase(), " player wins!") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null));
   }
 
 }
