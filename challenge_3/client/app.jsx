@@ -4,6 +4,9 @@ class App extends React.Component {
     this.state = {
       page: 0
     };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+
   }
 
   handleClick() {
@@ -16,42 +19,67 @@ class App extends React.Component {
     });
   }
 
+  handleChange(event) {
+    this.setState({
+      test: event.target.value
+    })
+  }
+
   render() {
     switch (this.state.page) {
       case 0:
         return (
-          <button onClick={this.handleClick.bind(this)}>Checkout</button>
+          <div>
+            <h4>You are purchasing:</h4>
+            <img src="https://poodles2doodles.com/wp-content/uploads/2019/03/Olaf-Royal2of7.jpg" style={{ height: 'auto', width: '20%' }} />
+            <br />
+            <br />
+            <button onClick={this.handleClick}>Checkout</button>
+          </div>
         );
         break;
       case 1:
         return (
           <div>
-            <div>Form page 1</div>
-            <button onClick={this.handleClick.bind(this)}>Next</button>
+            <h4>Please create an account:</h4>
+
+              <label for="name">Name </label>
+              <input type="text" name="name" onChange={this.handleChange} />
+              <br />
+              <br />
+              <label for="name">Email </label>
+              <input type="email" name="email" onChange={this.handleChange} />
+              <br />
+              <br />
+              <label for="name">Password </label>
+              <input type="password" name="password" onChange={this.handleChange} />
+              <br />
+              <br />
+              <button onClick={this.handleClick}>Next</button>
           </div>
         );
         break;
       case 2:
         return (
           <div>
-            <div>Form page 2</div>
-            <button onClick={this.handleClick.bind(this)}>Next</button>
+            <h4>Shipping details:</h4>
+            <button onClick={this.handleClick}>Next</button>
           </div>
         );
         break;
       case 3:
         return (
           <div>
-            <div>Form page 3</div>
-            <button onClick={this.handleClick.bind(this)}>Next</button>
+            <h4>Payment details:</h4>
+            <button onClick={this.handleClick}>Next</button>
           </div>
         );
         break;
       case 4:
         return (
           <div>
-            <div>Confirmation Page</div>
-            <button onClick={this.handleClick.bind(this)}>Purchase</button>
+            <h4>Confirmation page</h4>
+            <button onClick={this.handleClick}>Purchase</button>
           </div>
         );
         break;
