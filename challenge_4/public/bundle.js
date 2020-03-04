@@ -248,7 +248,7 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < 6; j++) {
           if (board[i][j] === letter) {
-            if (board[i + 1][j + 1] === letter && board[i + 2][j + 2] === letter && board[i + 3][j + 3] === letter || board[i - 1][j - 1] === letter && board[i - 2][j - 2] === letter && board[i - 3][j - 3] === letter) {
+            if ((board[i + 1] || [])[j + 1] === letter && (board[i + 2] || [])[j + 2] === letter && (board[i + 3] || [])[j + 3] === letter || (board[i - 1] || [])[j - 1] === letter && (board[i - 2] || [])[j - 2] === letter && (board[i - 3] || [])[j - 3] === letter) {
               result = true;
             }
           }
@@ -260,7 +260,7 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
       for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < 6; j++) {
           if (board[i][j] === letter) {
-            if (board[i - 1][j + 1] === letter && board[i - 2][j + 2] === letter && board[i - 3][j + 3] === letter || board[i + 1][j - 1] === letter && board[i + 2][j - 2] === letter && board[i + 3][j - 3] === letter) {
+            if ((board[i - 1] || [])[j + 1] === letter && (board[i - 2] || [])[j + 2] === letter && (board[i - 3] || [])[j + 3] === letter || (board[i + 1] || [])[j - 1] === letter && (board[i + 2] || [])[j - 2] === letter && (board[i + 3] || [])[j - 3] === letter) {
               result = true;
             }
           }
