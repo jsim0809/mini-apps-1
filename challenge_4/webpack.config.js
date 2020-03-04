@@ -11,5 +11,6 @@ module.exports = {
   module: {
     rules: [ { test: /\.(js|jsx)$/, exclude: /node_modules/, loader: 'babel-loader' }]
   },
-  mode: 'development'
+  mode: 'development',
+  devtool: 'source-map'
 };
