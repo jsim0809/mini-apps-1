@@ -94,7 +94,7 @@ class App extends React.Component {
         <p>Get 4 in a row to win!</p>
         <WhoseTurn redTurn={this.state.redTurn} />
         <Board board={this.state.board} />
-        <ButtonRow clickHandler={this.handleClick} />
+        <ButtonRow clickHandler={this.state.winner ? () => {} : this.handleClick} />
         {this.state.invalidMove ? <p>Invalid move! Please try again.</p> : <p></p>}
         {this.state.winner ? <h3>{this.state.winner.toUpperCase()} player wins!</h3> : <h3></h3>}
       </div>

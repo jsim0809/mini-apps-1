@@ -276,7 +276,7 @@ class App extends react__WEBPACK_IMPORTED_MODULE_0___default.a.Component {
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Board_jsx__WEBPACK_IMPORTED_MODULE_2__["default"], {
       board: this.state.board
     }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ButtonRow_jsx__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      clickHandler: this.handleClick
+      clickHandler: this.state.winner ? () => {} : this.handleClick
     }), this.state.invalidMove ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Invalid move! Please try again.") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null), this.state.winner ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.state.winner.toUpperCase(), " player wins!") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null));
   }
 
