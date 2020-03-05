@@ -25,12 +25,20 @@ class App extends React.Component {
   handleClick() {
     // Send state object to server
     // Clear fields
-    this.setState(oldState => {
-      if (oldState.page === 4) {
-        return { page: 0 };
-      } else {
-        return { page: oldState.page + 1 }
-      }
+    console.log(this.state);
+    $.ajax({
+      uri: '127.0.0.1:3000/',
+      method: 'POST',
+      data: this.state,
+      success: (() => {
+        this.setState(oldState => {
+          if (oldState.page === 4) {
+            return { page: 0 };
+          } else {
+            return { page: oldState.page + 1 }
+          }
+        });
+      })
     });
   }
 
