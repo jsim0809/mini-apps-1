@@ -22,6 +22,31 @@ app.listen(PORT, () => console.log(`Listening on port ${PORT}.`));
 // Interacting with database
 ////////
 
-var insertIntoDB = (obj) => {
+const mysql = require('mysql');
 
+var db = mysql.createConnection({
+  host: "localhost",
+  user: "student",
+  password: "student",
+  database: "checkouts"
+});
+
+
+
+var insertIntoDB = (obj) => {
+  return new Promise((resolve, reject) => {
+    db.connect((err) => {
+      if (err) {
+        reject(err);
+      } else {
+        db.query('', (err, result) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(result);
+          }
+        });
+      }
+    });
+  });
 };
